@@ -1,0 +1,16 @@
+services:
+  mariadb:
+    image: inception-mariadb
+    build:
+      context: ./requirements/mariadb/
+      secrets:
+        - mariadb_root_password
+    networks:
+      - backend
+
+secrets:
+  mariadb_root_password:
+    file: ../secrets/db_root_password.txt
+
+networks:
+  backend:
