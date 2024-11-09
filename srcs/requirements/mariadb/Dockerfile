@@ -1,6 +1,6 @@
 FROM alpine:3.19
 
-RUN apk update && apk upgrade
+RUN apk upgrade -a --no-cache
 
 RUN apk add --no-cache mariadb mariadb-client
 
