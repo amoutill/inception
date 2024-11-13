@@ -3,14 +3,21 @@ services:
     image: inception-mariadb
     build:
       context: ./requirements/mariadb/
-      secrets:
-        - mariadb_root_password
+    secrets:
+      - mariadb_root_password
+      - mariadb_wp_admin_password
+      - mariadb_wp_user_password
+    env_file: .db_env
     networks:
       - backend
 
 secrets:
   mariadb_root_password:
     file: ../secrets/db_root_password.txt
+  mariadb_wp_admin_password:
+    file: ../secrets/db_admin_password.txt
+  mariadb_wp_user_password:
+    file: ../secrets/db_user_password.txt
 
 networks:
   backend:
