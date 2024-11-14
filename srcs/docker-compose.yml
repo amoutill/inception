@@ -3,23 +3,32 @@ services:
     image: inception-mariadb
     build:
       context: ./requirements/mariadb/
+    container_name: mariadb
     secrets:
       - mariadb_root_password
       - mariadb_wp_admin_password
       - mariadb_wp_user_password
     env_file: .db_env
+    volumes:
+      - mariadb_data:/var/lib/mysql
     networks:
       - backend
   wordpress:
     image: inception-wordpress
     build:
       context: ./requirements/wordpress/
+    container_name: wordpress
+    volumes:
+      - wordpress_data:/var/www
     networks:
       - backend
   nginx:
     image: inception-nginx
     build:
       context: ./requirements/nginx/
+    container_name: nginx
+    volumes:
+      - wordpress_data:/var/www
     networks:
       - backend
     ports:
@@ -33,5 +42,12 @@ secrets:
   mariadb_wp_user_password:
     file: ../secrets/db_user_password.txt
 
+volumes:
+  mariadb_data:
+    name: mariadb_data
+  wordpress_data:
+    name: wordpress_data
+
 networks:
   backend:
+    name: backend
