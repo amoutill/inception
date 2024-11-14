@@ -14,4 +14,4 @@ if [ ! -d /var/www/wordpress ]; then
 fi
 
 echo "Starting PHP-FPM..."
-su-exec php $@
+su-exec php "$@"

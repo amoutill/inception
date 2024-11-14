@@ -52,4 +52,4 @@ EOF
 fi
 
 echo "Starting MariaDB..."
-su-exec mysql $@
+su-exec mysql "$@"
