@@ -7,6 +7,8 @@ RUN addgroup -S php && \
 	adduser -S php -G php -G www-data && \
 	chown -R php:php /var/log/php82
 
+COPY php-fpm.conf /etc/php82/php-fpm.conf
+
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
