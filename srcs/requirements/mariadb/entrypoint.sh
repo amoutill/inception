@@ -12,7 +12,6 @@ if [ ! -d /var/lib/mysql/mysql ]; then
   echo "Starting MariaDB in safe mode for setup..."
   mysqld_safe --skip-networking &
   pid="$!"
-  echo $pid
 
   while ! mysqladmin ping --silent; do
     echo "Waiting for MariaDB to be ready...";
