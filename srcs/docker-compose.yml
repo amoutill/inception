@@ -16,6 +16,14 @@ services:
       context: ./requirements/wordpress/
     networks:
       - backend
+  nginx:
+    image: inception-nginx
+    build:
+      context: ./requirements/nginx/
+    networks:
+      - backend
+    ports:
+      - 443:443
 
 secrets:
   mariadb_root_password:
