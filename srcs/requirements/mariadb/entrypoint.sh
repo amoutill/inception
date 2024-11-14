@@ -1,6 +1,8 @@
 #!/bin/sh
 
-# Read secrets from mounted files
+mkdir -p /run/mysqld
+chown -R mysql:mysql /run/mysqld
+
 MARIADB_ROOT_PASSWORD=$(cat /run/secrets/mariadb_root_password)
 MARIADB_WP_ADMIN_PASSWORD=$(cat /run/secrets/mariadb_wp_admin_password)
 MARIADB_WP_USER_PASSWORD=$(cat /run/secrets/mariadb_wp_user_password)
