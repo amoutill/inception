@@ -10,6 +10,12 @@ services:
     env_file: .db_env
     networks:
       - backend
+  wordpress:
+    image: inception-wordpress
+    build:
+      context: ./requirements/wordpress/
+    networks:
+      - backend
 
 secrets:
   mariadb_root_password:
