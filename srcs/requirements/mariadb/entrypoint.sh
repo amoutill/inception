@@ -8,7 +8,7 @@ MARIADB_WP_ADMIN_PASSWORD=$(cat /run/secrets/mariadb_wp_admin_password)
 MARIADB_WP_USER_PASSWORD=$(cat /run/secrets/mariadb_wp_user_password)
 
 if [ ! -d /var/lib/mysql/mysql ]; then
-  echo "Initializing MariaDB data directory..."
+  echo "Database not found, initializing ..."
   mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
   echo "Starting MariaDB in safe mode for setup..."
