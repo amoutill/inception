@@ -27,6 +27,9 @@ services:
     build:
       context: ./requirements/nginx/
     container_name: nginx
+    secrets:
+      - ssl_cert
+      - ssl_key
     volumes:
       - wordpress_data:/var/www
     networks:
@@ -41,6 +44,10 @@ secrets:
     file: ../secrets/db_admin_password.txt
   mariadb_wp_user_password:
     file: ../secrets/db_user_password.txt
+  ssl_cert:
+    file: ../secrets/amoutill.42.fr.crt
+  ssl_key:
+    file: ../secrets/amoutill.42.fr.key
 
 volumes:
   mariadb_data:
