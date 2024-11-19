@@ -1,7 +1,7 @@
 FROM alpine:3.19
 
 RUN apk upgrade --no-cache -a && \
-    apk add --no-cache wget tar php82-fpm php82-mysqli php82-curl php82-dom \
+    apk add --no-cache curl tar php82-fpm php82-mysqli php82-curl php82-dom \
 		php82-exif php82-fileinfo php82-pecl-imagick php82-mbstring php82-zip \
 		php82-gd php82-iconv php82-intl su-exec
 

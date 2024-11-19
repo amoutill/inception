@@ -18,6 +18,9 @@ services:
     build:
       context: ./requirements/wordpress/
     container_name: wordpress
+    env_file: .db_env
+    secrets:
+      - mariadb_wp_user_password
     volumes:
       - wordpress_data:/var/www
     networks:
