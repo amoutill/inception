@@ -4,11 +4,15 @@ services:
     build:
       context: ./requirements/mariadb/
     container_name: mariadb
+    hostname: ${MARIADB_HOST}
+    environment:
+      - MARIADB_WP_DB
+      - MARIADB_WP_ADMIN
+      - MARIADB_WP_USER
     secrets:
       - mariadb_root_password
       - mariadb_wp_admin_password
       - mariadb_wp_user_password
-    env_file: .db_env
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
@@ -18,18 +22,29 @@ services:
     build:
       context: ./requirements/wordpress/
     container_name: wordpress
-    env_file: .db_env
+    hostname: ${WORDPRESS_HOST}
+    environment:
+      - SITE_FQDN
+      - MARIADB_HOST
+      - MARIADB_WP_DB
+      - MARIADB_WP_USER
     secrets:
       - mariadb_wp_user_password
     volumes:
       - wordpress_data:/var/www
     networks:
       - backend
-  amoutill.42.fr:
+    depends_on:
+      - mariadb
+  nginx:
     image: inception-nginx
     build:
       context: ./requirements/nginx/
     container_name: nginx
+    hostname: ${SITE_FQDN}
+    environment:
+      - SITE_FQDN
+      - WORDPRESS_HOST
     secrets:
       - ssl_cert
       - ssl_key
@@ -37,6 +52,8 @@ services:
       - wordpress_data:/var/www
     networks:
       - backend
+    depends_on:
+      - wordpress
     ports:
       - 443:443
 

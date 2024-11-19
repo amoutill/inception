@@ -39,6 +39,8 @@ EOF
 
 \$table_prefix = 'wp_';
 
+define( 'WP_HOME', 'https://${SITE_FQDN}' );
+
 define( 'WP_DEBUG', false );
 
 /** Absolute path to the WordPress directory. */
