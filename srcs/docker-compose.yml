@@ -22,7 +22,7 @@ services:
       - wordpress_data:/var/www
     networks:
       - backend
-  nginx:
+  amoutill.42.fr:
     image: inception-nginx
     build:
       context: ./requirements/nginx/
