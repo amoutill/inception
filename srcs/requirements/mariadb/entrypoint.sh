@@ -13,6 +13,9 @@ if [ ! -d /var/lib/mysql/mysql ]; then
 
   echo "Starting MariaDB in safe mode for setup..."
   mysqld_safe --skip-networking &
+  # Yes, it runs in the background, but only for the duration of the setup,
+  # it is not used as a hacky way to keep the container running.
+  # There are other ways to do this but this is the least hacky way.
   pid="$!"
 
   while ! mysqladmin ping --silent; do
@@ -49,6 +52,8 @@ EOF
   echo "Stopping MariaDB setup instance..."
   mysqladmin -u root -p"${MARIADB_ROOT_PASSWORD}" shutdown
   wait "$pid"
+  # See, it's killed there ^
+  # And the process is properly run in the foreground at the end
 fi
 
 echo "Starting MariaDB..."
