@@ -78,8 +78,16 @@ secrets:
 volumes:
   mariadb_data:
     name: mariadb_data
+    driver_opts:
+      type: none
+      o: bind
+      device: ${HOME}/data/mariadb
   wordpress_data:
     name: wordpress_data
+    driver_opts:
+      type: none
+      o: bind
+      device: ${HOME}/data/wordpress
 
 networks:
   backend:
