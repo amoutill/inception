@@ -12,8 +12,21 @@ $(NAME): cert
 
 all: $(NAME)
 
-run: cert
+stupid_vols:
+	mkdir -p ~/data/mariadb
+	mkdir -p ~/data/wordpress
+
+up: cert stupid_vols
 	cd $(SRCS_DIR) && docker compose up
+
+upd: cert stupid_vols
+	cd $(SRCS_DIR) && docker compose up -d
+
+down:
+	cd $(SRCS_DIR) && docker compose down
+
+downv:
+	cd $(SRCS_DIR) && docker compose down --volumes
 
 clean:
 	docker builder prune -af
@@ -24,12 +37,13 @@ fclean: clean
 	docker volume rm -f mariadb_data wordpress_data
 	docker network rm -f backend
 	rm -f $(SSL_CERT) $(SSL_KEY)
+	sudo rm -rf ~/data/mariadb ~/data/wordpress
 
 $(SSL_KEY) $(SSL_CERT):
 	openssl req -x509 -nodes -newkey rsa:2048 -days 365 \
 	-keyout $(SSL_KEY) -out $(SSL_CERT) \
 	-subj \
-	"/C=FR/ST=Normandy/L=Le Havre/O=42/OU=Students/CN=amoutill.42.fr/emailAddress=email@student.42lehavre.fr"
+	"/C=FR/ST=Normandy/L=Le Havre/O=42/OU=Students/CN=amoutill.42.fr/emailAddress=amoutill@student.42lehavre.fr"
 
 cert: $(SSL_KEY) $(SSL_CERT)
 
